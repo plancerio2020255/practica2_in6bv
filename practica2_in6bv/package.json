@@ -1,0 +1,14 @@
+{
+  "name": "in6bv_control_academico",
+  "version": "1.0.0",
+  "description": "Segunda practica supervisada",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pedro Lancerio",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^6.2.1"
+  }
+}
