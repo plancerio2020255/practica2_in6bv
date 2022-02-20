@@ -27,8 +27,8 @@ function editarCurso(req, res) {
     if (req.user.rol == "MAESTRO") {
         Curso.findByIdAndUpdate(idCurso, parametros, { new: true }, (err, cursoEditado) => {
             if (err) return res.status(500).send({ mensjae: 'Error en la peticion' });
-            if (!productoEditado) return res.status(404).send({ mensaje: 'Error al editar el curso' });
-            return res.status(200).send({ curso: productoEditado });
+            if (!cursoEditado) return res.status(404).send({ mensaje: 'Error al editar el curso' });
+            return res.status(200).send({ curso: cursoEditado });
         })
     } else {
         return res.status(500).send({ mensaje: 'No tiene permisos suficientes o debe enviar los parametros obligatorios' })
@@ -36,9 +36,15 @@ function editarCurso(req, res) {
 }
 
 function eliminarCurso(req, res) {
-    var id = req.params.idMaestro;
+    var idCurso = req.params.idCurso;
     if(req.user.rol == "MAESTRO") {
-        Curso.findByIdAndDelete(idMaestro, (err, cursoEliminar)=>}
+        Curso.findByIdAndDelete(idCurso, (err, cursoEliminado)=>{
+            if(err) return res.status(500).send({mensaje:'Error en la peticion'});
+            if(!cursoEliminado) return res.status(500).send({mensaje: 'Error al eliminarel producto'})
+            return res.status(200).send({ curso: cursoEliminado});
+        })
+    } else {
+        return res.status(500).send({ mensaje: 'No tiene permisos suficientes'});
     }
 }
 
@@ -57,5 +63,6 @@ function obtenerCurso(req, res) {
 module.exports = {
     agregarCurso,
     editarCurso,
-    obtenerCurso
+    obtenerCurso,
+    eliminarCurso
 }
